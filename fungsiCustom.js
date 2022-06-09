@@ -45,6 +45,13 @@ const bacaData = function (fnCallback) {
   });
 };
 
+const getLastWord = (sentence) => {
+  const arrSentence = sentence.split(" ").reverse();
+
+  return arrSentence[0];
+};
+
+
 // ! JANGAN DIMODIFIKASI
 module.exports = {
   modifyFile1,
