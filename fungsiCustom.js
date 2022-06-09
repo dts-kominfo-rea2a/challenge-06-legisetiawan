@@ -18,28 +18,20 @@ let modifyFile3 = (val) => {
 
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
-const bacaData = function (fnCallback) {
-  fs.readFile(file1, "utf-8", (err, data1) => {
-    if (err) {
-      return fnCallback(err, null);
-    }
+const bacaData = (fnCallback) => {
+  fs.readFile(file1, "utf-8", (err, content1) => {
+    const data1 = JSON.parse(content1);
+    const message1 = getLastWord(data1.message);
 
-    fs.readFile(file2, "utf-8", (err, data2) => {
-      if (err) {
-        return fnCallback(err, null);
-      }
+    fs.readFile(file2, "utf-8", (err, content2) => {
+      const data2 = JSON.parse(content2);
+      const message2 = getLastWord(data2[0].message);
 
-      fs.readFile(file3, "utf-8", (err, data3) => {
-        if (err) {
-          return fnCallback(err, null);
-        }
+      fs.readFile(file3, "utf-8", (err, content3) => {
+        const data3 = JSON.parse(content3);
+        const message3 = getLastWord(data3[0].data.message);
 
-        const text1 = JSON.parse(data1).message.split(" ")[1];
-        const text2 = JSON.parse(data2)[0].message.split(" ")[1];
-        const text3 = JSON.parse(data3)[0].data.message.split(" ")[1];
-        const final = [text1, text2, text3];
-
-        return fnCallback(null, final);
+        fnCallback(err, [message1, message2, message3]);
       });
     });
   });
